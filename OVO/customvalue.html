@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OVO</title>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Albert+Sans:ital,wght@0,100..900;1,100..900&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+        *{
+            font-family: "Albert Sans", serif;
+            font-optical-sizing: auto;
+            font-weight: 780;
+            font-style: normal;
+        }
+
+        body{
+            margin: 0;
+        }
+
+        div{
+            position: relative;
+        }
+
+        img{
+            max-width: 100%;
+            max-height: 100%;
+            z-index: 0;
+        }
+
+        p{
+            z-index: 100;
+            position: absolute;
+            top: 95.5px;
+            left: 50px;
+            color: rgb(255, 255, 255);
+            letter-spacing: 0.3px;
+            font-size: 17.4px;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <img src="template.png" alt="" srcset="">
+        <p id="teks">98.548</p>
+    </div>
+
+    <script>
+        // Fitur fullscreen
+        function openFullscreen() {
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+    
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        }
+    
+        let lastTap = 0;
+        document.addEventListener("click", function (event) {
+            let currentTime = new Date().getTime();
+            let tapLength = currentTime - lastTap;
+            if (tapLength < 300 && tapLength > 0) { // Jika user menekan 2 kali dalam 300ms
+                if (document.fullscreenElement) {
+                    closeFullscreen();
+                } else {
+                    openFullscreen();
+                }
+            }
+            lastTap = currentTime;
+        });
+    
+    
+        // Fitur ganti nominal uang
+        const paragraf = document.getElementById('teks');
+    
+        // Fungsi untuk meminta input dan mengganti teks
+        function gantiTeks() {
+            const teksBaru = prompt('Masukkan teks baru:');
+            if (teksBaru !== null && teksBaru !== '') { // Cek jika input tidak kosong atau dibatalkan
+                paragraf.textContent = teksBaru;
+            }
+        }
+    
+        // Saat diklik (mouse)
+        paragraf.addEventListener('click', gantiTeks);
+    
+        // Saat disentuh (mobile)
+        paragraf.addEventListener('touchstart', function(e) {
+            e.preventDefault(); // Mencegah aksi default
+            gantiTeks();
+        });
+    </script>
+</body>
+
+</html>
